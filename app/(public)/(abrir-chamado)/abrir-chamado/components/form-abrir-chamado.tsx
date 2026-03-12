@@ -48,7 +48,12 @@ const FormAbrirChamado = () => {
         longitude: 0
     })
 
-    const getCoords = () => {
+    const getCoords = async () => {
+        const permission = await navigator.permissions.query({ name: "geolocation" })
+        if(permission.state == "granted"){
+            setCoordsStatus(false)
+            return
+        }
         if (!navigator.geolocation){
             alert("Geolocalização não é suportada pelo seu navegador")
         }

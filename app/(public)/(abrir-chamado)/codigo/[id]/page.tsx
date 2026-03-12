@@ -12,7 +12,7 @@ const CodigoPage = async ( {params}: CodigoProps ) => {
         <>  
             <SalvarChamado id={id} />
             <h1 className="text-2xl font-bold text-gray-700 text-center my-10">Código do Chamado</h1>
-            <p className="text-5xl font-bold text-gray-700 text-center mb-10 mt-15">{id}</p>
+            <p className="text-4xl font-bold text-gray-700 text-center mb-10 mt-15">{id}</p>
             <div className="sm:px-20 mb-15">
                 <div className="border p-5 sm:p-10 mt-20 rounded-3xl border-3">
                     <p className="font-bold text-gray-600 text-center">

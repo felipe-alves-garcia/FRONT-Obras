@@ -1,7 +1,7 @@
 const PrivateLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <main>
-        <header className="py-4 px-4 sm:px-10 bg-blue-400 flex items-center mb-15">
+        <header className="py-4 px-4 sm:px-10 bg-blue-400 flex items-center">
             <div className="flex-1">
                 <a className="text-white text-xl sm:text-2xl font-bold" href="/login">
                     <i className="bi bi-box-arrow-left hover:text-red-500"></i>
@@ -16,7 +16,7 @@ const PrivateLayout = ({ children }: { children: React.ReactNode }) => {
             </div>
             <div className="flex-1"></div>
         </header>
-        <div className="flex flex-col items-center min-h-screen px-5 sm:px-10">
+        <div className="flex flex-col items-center min-h-screen px-5 sm:px-10 relative">
             <div className="sm:w-full">
                 {children}
             </div>

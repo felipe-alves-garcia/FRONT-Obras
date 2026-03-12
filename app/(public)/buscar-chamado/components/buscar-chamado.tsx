@@ -47,12 +47,12 @@ const BuscarChamado = ({id}: {id:string}) => {
 
     return (
         <>
-            <h1 className="text-lg text-gray-900 font-medium">Chamado: 
-                <span className="text-gray-800 font-bold text-xl">&nbsp;{chamado?.ticket?.hashCode}</span>
+            <h1 className="mb-2 font-medium text-blue-400">Chamado: 
+                <span className="leading-5 text-lg font-bold text-gray-700">&nbsp;{chamado?.ticket?.hashCode}</span>
             </h1>
             {
                 chamado?.ticket?.ticketStatus == "PENDENT" && (
-                    <div className="sm:px-20 py-10">
+                    <div className="sm:px-20 pb-10 pt-5">
                         <div className="w-full bg-red-200 py-10 rounded-3xl border-2 border-red-500">
                             <p className="text-red-500 text-center font-bold text-xl">
                                 <i className="bi bi-envelope-paper-fill mr-5"></i>
@@ -70,7 +70,7 @@ const BuscarChamado = ({id}: {id:string}) => {
             }
             {
                 chamado?.ticket?.ticketStatus == "RECIEVED" && (
-                    <div className="sm:px-20 py-10">
+                    <div className="sm:px-20 pb-10 pt-5">
                         <div className="w-full bg-yellow-200 py-10 rounded-3xl border-2 border-yellow-500">
                             <p className="text-yellow-500 text-center font-bold text-xl">
                                 <i className="bi bi-clipboard-data-fill mr-5"></i>
@@ -88,7 +88,7 @@ const BuscarChamado = ({id}: {id:string}) => {
             }
             {
                 chamado?.ticket?.ticketStatus == "WORKING" && (
-                    <div className="sm:px-20 py-10">
+                    <div className="sm:px-20 pb-10 pt-5">
                         <div className="w-full bg-green-200 py-10 rounded-3xl border-2 border-green-500">
                             <p className="text-green-500 text-center font-bold text-xl">
                                 <i className="bi bi-tools mr-5"></i>
@@ -106,7 +106,7 @@ const BuscarChamado = ({id}: {id:string}) => {
             }
             {
                 chamado?.ticket?.ticketStatus == "FINISHED" && (
-                    <div className="sm:px-20 py-10">
+                    <div className="sm:px-20 pb-10 pt-5">
                         <div className="w-full bg-blue-200 py-10 rounded-3xl border-2 border-blue-500">
                             <p className="text-blue-500 text-center font-bold text-xl">
                                 <i className="bi bi-lightbulb-fill mr-5"></i>
@@ -161,16 +161,16 @@ const BuscarChamado = ({id}: {id:string}) => {
                     }
                 </div>
             </div>
-            <p className="mb-2 text-lg text-gray-900 font-medium">Descrição: 
-                <span className="text-gray-800 font-bold text-xl">&nbsp;{chamado?.ticket?.description}</span>
+            <p className="mb-2 font-medium text-blue-400">Descrição: 
+                <span className="leading-5 font-bold text-gray-700">&nbsp;{chamado?.ticket?.description}</span>
             </p>         
-            <p className="mb-2 text-lg text-gray-900 font-medium">Ponto de Referência: 
-                <span className="text-gray-800 font-bold text-xl">&nbsp;{chamado?.ticket?.referencePoint}</span>
+            <p className="mb-2 font-medium text-blue-400">Ponto de Referência: 
+                <span className="leading-5 font-bold text-gray-700">&nbsp;{chamado?.ticket?.referencePoint}</span>
             </p>       
             {
                 chamado?.imageURI != null && (
                     <div className="flex justify-center sm:px-20 mt-10">
-                        <img className="w-full rounded-xl" src={`http://10.0.3.117:8080${chamado?.imageURI}`}/>
+                        <img className="w-full rounded-xl" src={`http://localhost:8080${chamado?.imageURI}`}/>
                     </div>
                 )
             }

@@ -19,9 +19,9 @@ export default async function BuscarChamadoPage() {
         />  
       </div>
 
-      <FormBuscarChamado />
+      <FormBuscarChamado path="buscar-chamado/chamado"/>
       
-      <div className="w-full sm:max-w-3xl my-20">
+      <div className="w-full sm:max-w-3xl mt-10 mb-20">
         {chamados.length > 0 && (
           <div>
             <h2 className="font-bold text-xl">Chamados Passados</h2>
