@@ -1,0 +1,182 @@
+"use client"
+
+import { buscarChamado } from "@/app/action/buscar-chamado"
+
+import { useEffect, useState } from "react"
+
+const BuscarChamado = ({id}: {id:string}) => {
+
+    /*
+        - PENDENT
+        - RECIEVED
+        - WORKING
+        - FINISHED
+    */
+    /*
+        - LIGHT_FIXTURE_INSTALLATION
+        - LIGHT_ON_DURING_DAYTIME
+        - LOOSE_WIRE
+        - BLINKING_LIGHT
+        - LIGHT_BULB_OFF
+        - NO_LIGHT_BULB
+        - VANDALISM
+    */
+
+    const [ chamado, setChamado ] = useState({
+        ticket:{
+            description:"",
+            referencePoint:"",
+            ticketClassification:"",
+            ticketStatus:"",
+            hashCode:"",
+            latitude:0,
+            longitude:0,
+            id:""
+        },
+        imageURI:""
+    })
+
+    useEffect(() => {
+        buscarChamado(id).then((resp) => {
+            console.log(resp)
+            setChamado(resp)
+        }).catch((error) => {
+            console.log("Error --> "+error)
+        })
+    }, [])
+
+    return (
+        <>
+            <h1 className="text-lg text-gray-900 font-medium">Chamado: 
+                <span className="text-gray-800 font-bold text-xl">&nbsp;{chamado?.ticket?.hashCode}</span>
+            </h1>
+            {
+                chamado?.ticket?.ticketStatus == "PENDENT" && (
+                    <div className="sm:px-20 py-10">
+                        <div className="w-full bg-red-200 py-10 rounded-3xl border-2 border-red-500">
+                            <p className="text-red-500 text-center font-bold text-xl">
+                                <i className="bi bi-envelope-paper-fill mr-5"></i>
+                                EM ABERTO
+                            </p>
+                        </div>  
+                        <div className="flex mt-1 px-1 space-x-px">
+                            <div className="py-1 bg-red-500 flex-1 rounded-xl"></div>
+                            <div className="py-1 flex-1 border-1 border-red-500 rounded-xl"></div>
+                            <div className="py-1 flex-1 border-1 border-red-500 rounded-xl"></div>
+                            <div className="py-1 flex-1 border-1 border-red-500 rounded-xl"></div>
+                        </div>  
+                    </div>
+                )
+            }
+            {
+                chamado?.ticket?.ticketStatus == "RECIEVED" && (
+                    <div className="sm:px-20 py-10">
+                        <div className="w-full bg-yellow-200 py-10 rounded-3xl border-2 border-yellow-500">
+                            <p className="text-yellow-500 text-center font-bold text-xl">
+                                <i className="bi bi-clipboard-data-fill mr-5"></i>
+                                EM ANÁLISE
+                            </p>
+                        </div>
+                        <div className="flex mt-1 px-1 space-x-px">
+                            <div className="py-1 bg-yellow-500 flex-1 rounded-xl"></div>
+                            <div className="py-1 bg-yellow-500 flex-1 rounded-xl"></div>
+                            <div className="py-1 flex-1 border-1 border-yellow-500 rounded-xl"></div>
+                            <div className="py-1 flex-1 border-1 border-yellow-500 rounded-xl"></div>
+                        </div>     
+                    </div>
+                )
+            }
+            {
+                chamado?.ticket?.ticketStatus == "WORKING" && (
+                    <div className="sm:px-20 py-10">
+                        <div className="w-full bg-green-200 py-10 rounded-3xl border-2 border-green-500">
+                            <p className="text-green-500 text-center font-bold text-xl">
+                                <i className="bi bi-tools mr-5"></i>
+                                EM TRABALHO
+                            </p>
+                        </div>  
+                        <div className="flex mt-1 px-1 space-x-px">
+                            <div className="py-1 bg-green-500 flex-1 rounded-xl"></div>
+                            <div className="py-1 bg-green-500 flex-1 rounded-xl"></div>
+                            <div className="py-1 bg-green-500 flex-1 rounded-xl"></div>
+                            <div className="py-1 flex-1 border-1 border-green-500 rounded-xl"></div>
+                        </div>       
+                    </div>
+                )
+            }
+            {
+                chamado?.ticket?.ticketStatus == "FINISHED" && (
+                    <div className="sm:px-20 py-10">
+                        <div className="w-full bg-blue-200 py-10 rounded-3xl border-2 border-blue-500">
+                            <p className="text-blue-500 text-center font-bold text-xl">
+                                <i className="bi bi-lightbulb-fill mr-5"></i>
+                                FINALIZADO
+                            </p>
+                        </div>  
+                        <div className="flex mt-1 px-1 space-x-px">
+                            <div className="py-1 bg-blue-500 flex-1 rounded-xl"></div>
+                            <div className="py-1 bg-blue-500 flex-1 rounded-xl"></div>
+                            <div className="py-1 bg-blue-500 flex-1 rounded-xl"></div>
+                            <div className="py-1 bg-blue-500 flex-1 rounded-xl"></div>
+                        </div>    
+                    </div>
+                )
+            }  
+            <div className="flex justify-center mb-10">
+                <div className="bg-gray-100 w-100 text-center font-bold text-gray-400 py-5 border-4 rounded-[100]">
+                    {
+                       chamado?.ticket?.ticketClassification == "LIGHT_FIXTURE_INSTALLATION" && (
+                            <h2>Instalação de Iluminária</h2>
+                       )
+                    }
+                    {
+                       chamado?.ticket?.ticketClassification == "LIGHT_ON_DURING_DAYTIME" && (
+                            <h2>Lâmpada Acesa ao Dia</h2>
+                       )
+                    }
+                    {
+                       chamado?.ticket?.ticketClassification == "LOOSE_WIRE" && (
+                            <h2>Fio Solto</h2>
+                       )
+                    }
+                    {
+                       chamado?.ticket?.ticketClassification == "BLINKING_LIGHT" && (
+                            <h2>Lâmpada Piscando</h2>
+                       )
+                    }
+                    {
+                       chamado?.ticket?.ticketClassification == "LIGHT_BULB_OFF" && (
+                            <h2>Lâmpada Apagada</h2>
+                       )
+                    }
+                    {
+                       chamado?.ticket?.ticketClassification == "NO_LIGHT_BULB" && (
+                            <h2>Sem Lâmpada</h2>
+                       )
+                    }
+                    {
+                       chamado?.ticket?.ticketClassification == "VANDALISM" && (
+                            <h2>Vandalismo</h2>
+                       )
+                    }
+                </div>
+            </div>
+            <p className="mb-2 text-lg text-gray-900 font-medium">Descrição: 
+                <span className="text-gray-800 font-bold text-xl">&nbsp;{chamado?.ticket?.description}</span>
+            </p>         
+            <p className="mb-2 text-lg text-gray-900 font-medium">Ponto de Referência: 
+                <span className="text-gray-800 font-bold text-xl">&nbsp;{chamado?.ticket?.referencePoint}</span>
+            </p>       
+            {
+                chamado?.imageURI != null && (
+                    <div className="flex justify-center sm:px-20 mt-10">
+                        <img className="w-full rounded-xl" src={`http://10.0.3.117:8080${chamado?.imageURI}`}/>
+                    </div>
+                )
+            }
+        </>
+    )
+
+}
+
+export default BuscarChamado

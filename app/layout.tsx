@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Image from "next/image";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,11 +24,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
+      <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"></link>
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        <footer className="bg-blue-400 py-5 px-10 text-white text-xs space-y-1 text-left">
+          <h2><i className="mr-3 bi bi-building-fill"></i>Prefeitura Municipal de Parobé</h2>
+          <h2><i className="mr-3 bi bi-lightbulb-fill"></i>Secretaria de Obras</h2>
+          <h2><i className="mr-3 bi bi-pc-display"></i>Desenvolvido pelo Departamento de TI</h2>
+        </footer>
       </body>
     </html>
   );
