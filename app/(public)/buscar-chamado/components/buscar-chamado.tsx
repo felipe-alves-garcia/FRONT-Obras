@@ -170,7 +170,7 @@ const BuscarChamado = ({id}: {id:string}) => {
             {
                 chamado?.imageURI != null && (
                     <div className="flex justify-center sm:px-20 mt-10">
-                        <img className="w-full rounded-xl" src={`http://localhost:8080${chamado?.imageURI}`}/>
+                        <img className="w-full rounded-xl" src={`http://10.0.4.22:8080${chamado?.imageURI}`}/>
                     </div>
                 )
             }

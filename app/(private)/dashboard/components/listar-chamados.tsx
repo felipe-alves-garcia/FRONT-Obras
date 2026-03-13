@@ -6,7 +6,7 @@ import { useState, useEffect } from "react"
 
 const ListarChamados = () => {
 
-    const [ chamados, setChamados ] = useState([{
+    const [ chamadosAtivos, setChamadosAtivos ] = useState([{
         id:"",
         hashCode:"",
         chamadoStatus:"",    
@@ -17,7 +17,7 @@ const ListarChamados = () => {
 
     useEffect(() => {
         listarChamados().then((resp) => {
-            setChamados(resp.data)
+            setChamadosAtivos(resp.data)
         }).catch((error) => {
             console.log("Erro --> ", error)
         })
@@ -28,13 +28,13 @@ const ListarChamados = () => {
             <h2 className="text-xl text-gray-700 font-bold mb-5 pl-5">Chamados Não Finalizados</h2>
             <div className="flex flex-wrap justify-start pb-30">
                 {
-                    chamados.map((chamado) => {
+                    chamadosAtivos.map((chamado) => {
                         console.log(chamado)
                         return (
-                            <a key={chamado?.id} className="mx-3 my-3 block bg-gray-100 w-90 rounded-xl p-3 border-1 hover:border-blue-400 hover:bg-blue-100 hover:opacity-90 cursor-pointer shadow">
+                            <a key={chamado?.id} href={`/dashboard/chamado/${chamado?.hashCode}`} className="mx-3 my-3 block bg-gray-100 w-90 rounded-xl p-3 border-1 hover:border-blue-400 hover:bg-blue-100 hover:opacity-90 cursor-pointer shadow">
                                 <div className="w-full h-45 rounded-xl">
                                     <img
-                                        src={"http://localhost:8080/uploads/"+chamado?.id+".jpg"}
+                                        src={"http://10.0.4.22:8080/uploads/"+chamado?.id+".jpg"}
                                         className="w-full h-full object-cover overflow-hidden rounded-xl"
                                     />
                                 </div>

@@ -7,7 +7,7 @@ export const listarChamados = async () => {
     //---
 
     try{
-        const response = await fetch(`${url}chamado`)
+        const response = await fetch(`${url}chamado/ativo`)
         const data = await response.json()
         return {data:data, error:""}
     } catch(error){
