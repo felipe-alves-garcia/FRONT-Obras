@@ -27,10 +27,12 @@ export default function RootLayout({
     <html lang="pt-BR">
       <head>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"></link>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
         {children}
         <footer className="bg-blue-400 py-5 px-10 text-white text-xs space-y-1 text-left">
           <h2><i className="mr-3 bi bi-building-fill"></i>Prefeitura Municipal de Parobé</h2>

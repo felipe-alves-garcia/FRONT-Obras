@@ -1,13 +1,30 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { redirect } from "next/navigation"
 
 import { updateStatusChamado } from "@/app/action/update-status-chamado"
 import { buscarChamado } from "@/app/action/buscar-chamado"
 import { urlApi } from "@/app/action/url-api"
 
+import L from "leaflet"
+import "leaflet/dist/leaflet.css"
+
 const BuscarChamado = ({id}:{id:string}) => {
+
+    const createMap = (latitude:number, longitude:number) => {
+       const map = L.map('map').setView([latitude, longitude], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap'
+        }).addTo(map);
+
+        L.marker([latitude, longitude])
+        .addTo(map)
+        .bindPopup("Local do chamado")
+        .openPopup();  
+    }
+
+    //---
 
     const [ url, setUrl ] = useState("")
     const [ chamado, setChamado ] = useState({
@@ -32,6 +49,7 @@ const BuscarChamado = ({id}:{id:string}) => {
     const carregarChamado = async () => {
         buscarChamado(id).then((resp) => {
             setChamado(resp)
+            createMap(resp.ticket.latitude, resp.ticket.longitude)
             console.log(resp)
         }).catch((error) => {
             console.log("Erro --> ", error)
@@ -45,7 +63,7 @@ const BuscarChamado = ({id}:{id:string}) => {
             console.log("Erro --> ", error)
         ])
         carregarChamado()
-    }, [])
+    }, [])    
 
     return (
         <div className="pt-10 sm:pt-20 flex flex-col lg:flex-row w-full">
@@ -146,7 +164,10 @@ const BuscarChamado = ({id}:{id:string}) => {
                         )
                         }
                     </div>
-                </div>     
+                </div>
+                <div className="mb-15">
+                    <div id="map" className=" rounded-sm px-10 lg:px-0 w-full h-100"></div>     
+                </div>
             </div>
             <div className="flex-1 mb-20">
                 <p className="leading-5 text-lg font-bold text-gray-700 pb-3">

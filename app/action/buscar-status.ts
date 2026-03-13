@@ -32,7 +32,6 @@ export const buscarStatus = async () => {
                 if (data[i].status == newData[n].status) newData[n].count = data[i].count
             }
         }
-        console.log(newData)
         return newData
     } catch(error){
         console.log("Erro --> ",error)
