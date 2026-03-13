@@ -1,6 +1,7 @@
 "use client"
 
 import { buscarChamado } from "@/app/action/buscar-chamado"
+import { urlApi } from "@/app/action/url-api"
 
 import { useEffect, useState } from "react"
 
@@ -22,6 +23,7 @@ const BuscarChamado = ({id}: {id:string}) => {
         - VANDALISM
     */
 
+    const [ url, setUrl ] = useState("")
     const [ chamado, setChamado ] = useState({
         ticket:{
             description:"",
@@ -37,6 +39,11 @@ const BuscarChamado = ({id}: {id:string}) => {
     })
 
     useEffect(() => {
+        urlApi().then((resp) => {
+            setUrl(resp)
+        }).catch((error) => {
+            console.log("Erro --> ", error)
+        })
         buscarChamado(id).then((resp) => {
             console.log(resp)
             setChamado(resp)
@@ -170,7 +177,7 @@ const BuscarChamado = ({id}: {id:string}) => {
             {
                 chamado?.imageURI != null && (
                     <div className="flex justify-center sm:px-20 mt-10">
-                        <img className="w-full rounded-xl" src={`http://10.0.4.22:8080${chamado?.imageURI}`}/>
+                        <img className="w-full rounded-xl" src={`${url}${chamado?.imageURI}`}/>
                     </div>
                 )
             }

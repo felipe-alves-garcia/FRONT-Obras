@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 
 const Status = () => {
 
-    const [ status, setStatus ] = useState([{status:"", count:0}])
+    const [ status, setStatus ] = useState<{ status: string; count: number; }[] | undefined>([{status:"", count:0}])
     useEffect(() => {
         buscarStatus().then((resp) => {
             setStatus(resp)
