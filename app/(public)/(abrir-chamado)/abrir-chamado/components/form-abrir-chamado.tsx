@@ -50,7 +50,7 @@ const FormAbrirChamado = () => {
 
     const getCoords = async () => {
         const permission = await navigator.permissions.query({ name: "geolocation" })
-        if(permission.state == "granted"){
+        if(permission.state == "granted" && coords.latitude != 0 && coords.longitude != 0){
             setCoordsStatus(false)
             return
         }

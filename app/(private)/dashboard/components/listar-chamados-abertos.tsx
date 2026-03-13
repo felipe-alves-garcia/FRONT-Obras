@@ -26,11 +26,21 @@ const ListarChamados = () => {
         }).catch((error) => {
             console.log("Erro --> ", error)
         })
-        listarChamados().then((resp) => {
-            setChamadosAtivos(resp.data)
-        }).catch((error) => {
-            console.log("Erro --> ", error)
-        })
+    }, [])
+
+    useEffect(() => {
+        const dados = () => {
+            listarChamados().then((resp) => {
+                setChamadosAtivos(resp.data)
+            }).catch((error) => {
+                console.log("Erro --> ", error)
+            })
+        }
+        dados()
+        
+        let interval = setInterval(dados, 600000)
+
+        return () => clearInterval(interval)
     }, [])
 
     return (
