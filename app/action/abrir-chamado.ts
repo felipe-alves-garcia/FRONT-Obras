@@ -7,6 +7,8 @@ const abrirChamadoSchema = z.object({
     name: z.string().trim().min(3,{error:"Nome muito pequeno"}).max(100, {error:"Nome muito grande"}),
     email: z.string().email({error:"E-mail inválido"}),
     description: z.string().trim().max(200, {error: "Descrição muito grande"}),
+    street: z.string().trim().max(150, {error: "Nome de bairro muito grande"}),
+    block: z.string().trim().max(80, {error: "Nome de rua muito grande"}),
     referencePoint: z.string().trim().max(100, {error: "Ponto de referência muito grande"}),
     phoneNumber: z.string({error:"Número de telefone inválido"}).min(11, {error:"Número de telefone muito pequeno (ex:51912345678)"}).max(12, {error:"Número de telefone muito grande (ex:51912345678)"})
 })
@@ -24,6 +26,8 @@ export const abrirChamado = async (prevState: any, formData: FormData) => {
         description: formData.get("descricao"),
         latitude: formData.get("latitude"),
         longitude: formData.get("longitude"),
+        street: formData.get("rua"),
+        block: formData.get("bairro"),
         referencePoint: formData.get("ponto"),
         ticketClassification: formData.get("tipo"),
         citizen:{
@@ -38,6 +42,8 @@ export const abrirChamado = async (prevState: any, formData: FormData) => {
     const verify = abrirChamadoSchema.safeParse({
         name: formValues.citizen.name,
         email: formValues.citizen.email,
+        street: formValues.street,
+        block: formValues.block,
         description: formValues.description,
         referencePoint: formValues.referencePoint,
         phoneNumber: String(formValues.citizen.phoneNumber),

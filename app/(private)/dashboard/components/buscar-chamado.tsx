@@ -36,6 +36,8 @@ const BuscarChamado = ({id}:{id:string}) => {
             },
             description:"",
             referencePoint:"",
+            street:"",
+            block:"",
             ticketClassification:"",
             ticketStatus:"",
             hashCode:"",
@@ -126,6 +128,12 @@ const BuscarChamado = ({id}:{id:string}) => {
                 <p className="mb-2 font-medium text-blue-400">Ponto de Referência: 
                     <span className="leading-5 text-lg font-bold text-gray-700">&nbsp;{chamado?.ticket?.referencePoint}</span>
                 </p>  
+                <p className="mb-2 font-medium text-blue-400">Rua: 
+                    <span className="leading-5 text-lg font-bold text-gray-700">&nbsp;{chamado?.ticket?.street}</span>
+                </p> 
+                <p className="mb-2 font-medium text-blue-400">Bairro: 
+                    <span className="leading-5 text-lg font-bold text-gray-700">&nbsp;{chamado?.ticket?.block}</span>
+                </p> 
                 <div className="flex justify-center my-20">
                     <div className="bg-blue-100 w-80 sm:px-10 text-center font-bold text-blue-400 py-5 border-4 border-blue-300 rounded-[100]">
                         {

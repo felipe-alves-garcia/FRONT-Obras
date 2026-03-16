@@ -28,6 +28,8 @@ const BuscarChamado = ({id}: {id:string}) => {
         ticket:{
             description:"",
             referencePoint:"",
+            street:"",
+            block:"",
             ticketClassification:"",
             ticketStatus:"",
             hashCode:"",
@@ -173,6 +175,12 @@ const BuscarChamado = ({id}: {id:string}) => {
             </p>         
             <p className="mb-2 font-medium text-blue-400">Ponto de Referência: 
                 <span className="leading-5 font-bold text-gray-700">&nbsp;{chamado?.ticket?.referencePoint}</span>
+            </p>  
+            <p className="mb-2 font-medium text-blue-400">Rua: 
+                <span className="leading-5 font-bold text-gray-700">&nbsp;{chamado?.ticket?.street}</span>
+            </p>  
+            <p className="mb-2 font-medium text-blue-400">Bairro: 
+                <span className="leading-5 font-bold text-gray-700">&nbsp;{chamado?.ticket?.block}</span>
             </p>       
             {
                 chamado?.imageURI != null && (
