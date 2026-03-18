@@ -50,7 +50,7 @@ const ListarChamados = () => {
                 {
                     chamadosAtivos.map((chamado) => {
                         return (
-                            <a key={chamado?.ticket?.id} href={`/dashboard/chamado/${chamado?.ticket?.hashCode}`} className="mx-3 my-3 block bg-gray-100 w-90 rounded-xl p-3 border-1 hover:border-blue-400 hover:bg-blue-100 hover:opacity-90 cursor-pointer shadow">
+                            <a key={chamado?.ticket?.id} href={`/dashboard/chamado/${chamado?.ticket?.hashCode}`} className="mx-3 my-3 block bg-gray-100 w-full sm:w-90 rounded-xl p-3 border-1 hover:border-blue-400 hover:bg-blue-100 hover:opacity-90 cursor-pointer shadow">
                                 <div className="w-full h-45 rounded-xl">
                                     {
                                         chamado?.imageURI != null && (
