@@ -24,6 +24,8 @@ const FormAbrirChamado = () => {
     const [ email, setEmail ] = useState("")
     const [ phoneNumber, setPhoneNumber ] = useState("")
     const [ description, setDescription ] = useState("")
+    const [ street, setStreet ] = useState("")
+    const [ block, setBlock ] = useState("")
     const [ referencePoint, setReferencePoint ] = useState("")
 
     useEffect(() => {
@@ -31,12 +33,16 @@ const FormAbrirChamado = () => {
         let emailtest = (state?.values?.citizen?.email) ? state?.values?.citizen?.email : ""
         let phoneNumberTest = (state?.values?.citizen?.phoneNumber) ? state?.values?.citizen?.phoneNumber : ""
         let descriptionTest = (state?.values?.description) ? state?.values?.description : ""
+        let streetTest = (state?.values?.street) ? state?.values?.street : ""
+        let blockTest = (state?.values?.block) ? state?.values?.block : ""
         let referencePointTest = (state?.values?.referencePoint) ? state?.values?.referencePoint : ""
 
         setName(String(nameTest))
         setEmail(String(emailtest))
         setPhoneNumber(String(phoneNumberTest))
         setDescription(String(descriptionTest))
+        setStreet(String(streetTest))
+        setBlock(String(blockTest))
         setReferencePoint(String(referencePointTest))
     }, [state?.values])
 
@@ -148,6 +154,8 @@ const FormAbrirChamado = () => {
                         name="rua"
                         type="text" 
                         placeholder="Digite sua rua" 
+                        value={street}
+                        onChange={(e) => {setStreet(e.target.value)}}
                         required
                     />
                 </fieldset>
@@ -158,6 +166,8 @@ const FormAbrirChamado = () => {
                         name="bairro"
                         type="text" 
                         placeholder="Digite seu bairro" 
+                        value={block}
+                        onChange={(e) => {setBlock(e.target.value)}}
                         required
                     />
                 </fieldset>
