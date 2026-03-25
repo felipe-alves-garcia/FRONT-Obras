@@ -6,20 +6,8 @@ import { Input } from "@/components/ui/input"
 import { useActionState, useState, useEffect } from "react"
 
 import { loginUser } from "@/app/action/login"
-import { urlApi } from "@/app/action/url-api"
 
 const LoginForm = () => {
-
-    useEffect(() => {
-        urlApi().then((resp) => {
-            const url = `${resp}/oauth2/authorize?response_type=code&client_id=app-chamados-iluminacao&redirect_uri=http://10.0.3.182:3000/dashboard&scope=admin`
-            window.location.href = url
-        }).catch((error) => {
-            console.log(error)
-        })
-    }, [])
-
-    //---
 
     const [ state, action, pending ] = useActionState(loginUser, null)
 

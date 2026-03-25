@@ -15,14 +15,15 @@ export const loginUser = async (prevState:any, formData:FormData) => {
     //---
 
     const formValues = {
-        cpf: Number(formData.get("cpf")),
+        cpf: formData.get("cpf"),
         password: formData.get("password")
     }
     
     const verify = loginSchema.safeParse({
-        cpf: String(formValues.cpf),
+        cpf: formValues.cpf,
         password: formValues.password
     })
+
     if(!verify.success){
         return{
             error: verify.error.flatten().fieldErrors,
@@ -33,6 +34,18 @@ export const loginUser = async (prevState:any, formData:FormData) => {
     //---
 
 
+
+    //---
+
+    try{
+        const response = await fetch(`${url}/auth`, {
+            method:"POST",
+            body: JSON.stringify(formValues)
+        })
+        console.log(response)
+    } catch(error){
+        console.log("Erro --> ", error)
+    }
 
 }
 
