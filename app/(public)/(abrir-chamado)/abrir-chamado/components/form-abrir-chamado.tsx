@@ -112,7 +112,7 @@ const FormAbrirChamado = () => {
                 handleError,
                 {
                     enableHighAccuracy: false, // 🔥 melhor para desktop
-                    timeout: 5000,            // 🔥 evita timeout rápido
+                    timeout: 10000,            // 🔥 evita timeout rápido
                     maximumAge: 60000
                 }
             )
@@ -185,7 +185,7 @@ const FormAbrirChamado = () => {
                     coordsStatus && (
                         <div className="pt-3 flex justify-center">
                         <button
-                        disabled={coordsStatus}
+                        disabled={pending}
                         type="button"
                         onClick={getCoords}
                         className="disabled:bg-gray-400 disabled:opacity-50 cursor-pointer max-w-70 sm:max-w-3xl w-full sm:w-auto block text-center bg-blue-400 hover:bg-blue-500 text-white font-bold py-3 px-8 sm:px-10 rounded-2xl"
