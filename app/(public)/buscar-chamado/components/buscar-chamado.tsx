@@ -33,6 +33,8 @@ const BuscarChamado = ({id}: {id:string}) => {
             ticketClassification:"",
             ticketStatus:"",
             hashCode:"",
+            createdAt:[],
+            updatedAt:[],
             latitude:0,
             longitude:0,
             id:""
@@ -172,7 +174,13 @@ const BuscarChamado = ({id}: {id:string}) => {
             </div>
             <p className="mb-2 font-medium text-blue-400">Descrição: 
                 <span className="leading-5 font-bold text-gray-700">&nbsp;{chamado?.ticket?.description}</span>
-            </p>         
+            </p>        
+            <p className="mb-2 font-medium text-blue-400">Criado em: 
+                <span className="leading-5 font-bold text-gray-700">&nbsp;{chamado?.ticket?.createdAt[0]}/{chamado?.ticket?.createdAt[1]}/{chamado?.ticket?.createdAt[2]}</span>
+            </p>  
+            <p className="mb-2 font-medium text-blue-400">Última Atualização em: 
+                <span className="leading-5 font-bold text-gray-700">&nbsp;{chamado?.ticket?.updatedAt[0]}/{chamado?.ticket?.updatedAt[1]}/{chamado?.ticket?.updatedAt[2]}</span>
+            </p>      
             <p className="mb-2 font-medium text-blue-400">Ponto de Referência: 
                 <span className="leading-5 font-bold text-gray-700">&nbsp;{chamado?.ticket?.referencePoint}</span>
             </p>  

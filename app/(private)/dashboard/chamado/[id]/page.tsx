@@ -1,4 +1,7 @@
 import BuscarChamado from "../../components/buscar-chamado"
+import VerifyToken from "../../components/verify-token"
+
+import { cookies } from "next/headers"
 
 interface ChamadoProps {
     params: Promise<{id:string}>
@@ -8,8 +11,13 @@ const ChamadoPage = async ({params}: ChamadoProps) => {
 
     const { id } = await params
 
+    const cookieStore = await cookies()
+    const tokenCookie = cookieStore.get("token")?.value
+    const token = tokenCookie ? JSON.parse(tokenCookie) : [""]
+
     return (
         <>
+            <VerifyToken token={token}/>
             <main>
                 <header className="py-4 px-4 sm:px-10 bg-blue-400 flex items-center">
                     <div className="flex-1">
@@ -28,7 +36,7 @@ const ChamadoPage = async ({params}: ChamadoProps) => {
                 </header>
                 <div className="flex flex-col items-center min-h-screen px-5 sm:px-10 relative">
                     <div className="sm:w-full relative">
-                        <BuscarChamado id={id}/>
+                        <BuscarChamado id={id} token={token}/>
                     </div>
                 </div>    
             </main>

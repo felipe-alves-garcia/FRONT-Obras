@@ -1,6 +1,6 @@
 "use server"
 
-export const updateStatusChamado = async (id: string, status: string) => {
+export const updateStatusChamado = async (id: string, status: string, token: string) => {
 
     const url = `${process.env.URL_API}:${process.env.PORT_API}/`
 
@@ -8,7 +8,7 @@ export const updateStatusChamado = async (id: string, status: string) => {
 
     try{
         await fetch(`${url}chamado/${id}`, {
-            headers:{"Content-Type": "application/json"},
+            headers:{"Content-Type": "application/json", "authorization": token},
             body:JSON.stringify({ticketStatus:status}),
             method:"PUT"
         })

@@ -9,7 +9,7 @@ import { urlApi } from "@/app/action/url-api"
 import L from "leaflet"
 import "leaflet/dist/leaflet.css"
 
-const BuscarChamado = ({id}:{id:string}) => {
+const BuscarChamado = (props: {id: string, token: string}) => {
 
     const createMap = (latitude:number, longitude:number) => {
        const map = L.map('map').setView([latitude, longitude], 13);
@@ -41,6 +41,8 @@ const BuscarChamado = ({id}:{id:string}) => {
             ticketClassification:"",
             ticketStatus:"",
             hashCode:"",
+            createdAt:[],
+            updatedAt:[],
             latitude:0,
             longitude:0,
             id:"",
@@ -49,10 +51,9 @@ const BuscarChamado = ({id}:{id:string}) => {
     })
 
     const carregarChamado = async () => {
-        buscarChamado(id).then((resp) => {
+        buscarChamado(props.id).then((resp) => {
             setChamado(resp)
             createMap(resp.ticket.latitude, resp.ticket.longitude)
-            console.log(resp)
         }).catch((error) => {
             console.log("Erro --> ", error)
         })
@@ -75,7 +76,7 @@ const BuscarChamado = ({id}:{id:string}) => {
                 </p> 
                 <div className="flex flex-col rounded-xl bg-gray-100 p-7 mb-10 space-y-px">
                     <button onClick={() => {if(chamado?.ticket?.ticketStatus != "PENDENT") {
-                            updateStatusChamado(chamado?.ticket?.id, "PENDENT")
+                            updateStatusChamado(chamado?.ticket?.id, "PENDENT", props.token)
                             carregarChamado()
                         }}} className={
                             chamado?.ticket?.ticketStatus == "PENDENT"
@@ -86,7 +87,7 @@ const BuscarChamado = ({id}:{id:string}) => {
                         <p className="font-bold">Em Aberto</p>
                     </button>
                     <button onClick={() => {if(chamado?.ticket?.ticketStatus != "RECIEVED"){ 
-                            updateStatusChamado(chamado?.ticket?.id, "RECIEVED")
+                            updateStatusChamado(chamado?.ticket?.id, "RECIEVED", props.token)
                             carregarChamado()
                         }}} className={
                             chamado?.ticket?.ticketStatus == "RECIEVED"
@@ -97,7 +98,7 @@ const BuscarChamado = ({id}:{id:string}) => {
                         <p className="font-bold">Em Análise</p>
                     </button>
                     <button onClick={() => {if(chamado?.ticket?.ticketStatus != "WORKING"){
-                            updateStatusChamado(chamado?.ticket?.id, "WORKING")
+                            updateStatusChamado(chamado?.ticket?.id, "WORKING", props.token)
                             carregarChamado()
                         }}} className={
                             chamado?.ticket?.ticketStatus == "WORKING"
@@ -108,7 +109,7 @@ const BuscarChamado = ({id}:{id:string}) => {
                         <p className="font-bold">Em Trabalho</p>
                     </button>
                     <button onClick={() => {if(chamado?.ticket?.ticketStatus != "FINISHED"){
-                            updateStatusChamado(chamado?.ticket?.id, "FINISHED")
+                            updateStatusChamado(chamado?.ticket?.id, "FINISHED", props.token)
                             carregarChamado()
                         }}} className={
                             chamado?.ticket?.ticketStatus == "FINISHED"
@@ -124,6 +125,12 @@ const BuscarChamado = ({id}:{id:string}) => {
                 </h1>
                 <p className="mb-2 font-medium text-blue-400">Descrição: 
                     <span className="leading-5 text-lg font-bold text-gray-700">&nbsp;{chamado?.ticket?.description}</span>
+                </p>   
+                <p className="mb-2 font-medium text-blue-400">Criado em: 
+                    <span className="leading-5 text-lg font-bold text-gray-700">&nbsp;{chamado?.ticket?.createdAt[0]}/{chamado?.ticket?.createdAt[1]}/{chamado?.ticket?.createdAt[2]}</span>
+                </p> 
+                <p className="mb-2 font-medium text-blue-400">Última Atualização em: 
+                    <span className="leading-5 text-lg font-bold text-gray-700">&nbsp;{chamado?.ticket?.updatedAt[0]}/{chamado?.ticket?.updatedAt[1]}/{chamado?.ticket?.updatedAt[2]}</span>
                 </p>         
                 <p className="mb-2 font-medium text-blue-400">Ponto de Referência: 
                     <span className="leading-5 text-lg font-bold text-gray-700">&nbsp;{chamado?.ticket?.referencePoint}</span>

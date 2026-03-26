@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function HomePage() {
   return (
     <div className="flex flex-col items-center min-h-screen py-2 pt-20 px-5">
-      <div className="sm:max-w-3xl sm:w-full">
+      <div className="">
         <img
           src="/imagens/logo1.png"
           alt="Prefeitura Municipal de Parobé"

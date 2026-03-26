@@ -15,7 +15,9 @@ const ListarChamados = () => {
             chamadoStatus:"",    
             description:"",
             ticketClassification:"",
-            ticketStatus:""    
+            ticketStatus:"",   
+            createdAt:[],
+            updatedAt:[]
         },
         imageURI:""
     }])
@@ -50,7 +52,7 @@ const ListarChamados = () => {
                 {
                     chamadosAtivos.map((chamado) => {
                         return (
-                            <a key={chamado?.ticket?.id} href={`/dashboard/chamado/${chamado?.ticket?.hashCode}`} className="mx-3 my-3 block bg-gray-100 w-full sm:w-90 rounded-xl p-3 border-1 hover:border-blue-400 hover:bg-blue-100 hover:opacity-90 cursor-pointer shadow">
+                            <a key={chamado?.ticket?.id} href={`/dashboard/chamado/${chamado?.ticket?.hashCode}`} className="relative mx-3 my-3 block bg-gray-100 w-full sm:w-90 rounded-xl p-3 border-1 hover:border-blue-400 hover:bg-blue-100 hover:opacity-90 cursor-pointer shadow">
                                 <div className="w-full h-45 rounded-xl">
                                     {
                                         chamado?.imageURI != null && (
@@ -70,8 +72,8 @@ const ListarChamados = () => {
                                         )
                                     }
                                 </div>
-                                <div className="px-2 py-5">
-                                    <div className="font-medium text-blue-400">
+                                <div className="px-2 py-5 ">
+                                    <div className="font-medium text-blue-400 pb-4">
                                         <div className="mb-5 mt-3 flex justify-between">
                                             {
                                                 chamado?.ticket?.ticketClassification == "LIGHT_FIXTURE_INSTALLATION" && (
@@ -135,6 +137,8 @@ const ListarChamados = () => {
                                         <p>Descrição: <span className="leading-5 font-bold text-gray-700">{chamado?.ticket?.description}</span></p>
                                     </div>    
                                 </div>
+                                <p className="absolute left-0 bottom-0 text-gray-400 text-sm font-normal pb-3 pl-3">Atualizado em {chamado?.ticket?.updatedAt[2]}/{chamado?.ticket?.updatedAt[1]}/{chamado?.ticket?.updatedAt[0]}</p>
+                                <p className="absolute right-0 bottom-0 text-gray-400 text-sm font-normal pb-3 pr-3">Criado em {chamado?.ticket?.createdAt[2]}/{chamado?.ticket?.createdAt[1]}/{chamado?.ticket?.createdAt[0]}</p>
                             </a>    
                         )
                     })

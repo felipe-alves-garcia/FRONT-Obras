@@ -7,7 +7,7 @@ const LoginPage = () => {
             <div className="min-h-screen px-5 pt-20 flex justify-center">
                 <div className="sm:max-w-3xl w-full">
                     <div className="flex flex-col items-center py-2">
-                        <div className="w-full">
+                        <div className="">
                             <img
                             src="/imagens/logo1.png"
                             alt="Prefeitura Municipal de Parobé"

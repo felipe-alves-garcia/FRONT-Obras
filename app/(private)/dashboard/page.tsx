@@ -1,11 +1,19 @@
 import Status from "./components/status"
 import FormBuscarChamado from "../../(public)/buscar-chamado/components/form-buscar-chamado"
 import ListarChamados from "./components/listar-chamados-abertos"
+import VerifyToken from "./components/verify-token"
 
-const DashboardPage = () => {
+import { cookies } from "next/headers"
+
+const DashboardPage = async () => {
+
+    const cookieStore = await cookies()
+    const tokenCookie = cookieStore.get("token")?.value
+    const token = tokenCookie ? JSON.parse(tokenCookie) : ""
 
     return (
         <>  
+            <VerifyToken token={token}/>
             <main>
                 <header className="py-4 px-4 sm:px-10 bg-blue-400 flex items-center">
                     <div className="flex-1">

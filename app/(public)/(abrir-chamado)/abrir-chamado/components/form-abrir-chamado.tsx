@@ -55,25 +55,72 @@ const FormAbrirChamado = () => {
     })
 
     const getCoords = async () => {
-        const permission = await navigator.permissions.query({ name: "geolocation" })
-        if(permission.state == "granted" && coords.latitude != 0 && coords.longitude != 0){
-            setCoordsStatus(false)
+        if (!navigator.geolocation) {
+            alert("Geolocalização não é suportada pelo seu navegador")
             return
         }
-        if (!navigator.geolocation){
-            alert("Geolocalização não é suportada pelo seu navegador")
-        }
-        else {
-            navigator.geolocation.getCurrentPosition((position) => {
-                setCoords({
-                    latitude: position?.coords?.latitude,
-                    longitude: position?.coords?.longitude
-                })
-                setCoordsStatus(false)
-            }, (error) => {
-                alert("Não foi possível obter sua localização. Por favor, permita o acesso à geolocalização e tente novamente.")
+
+        const handleSuccess = (position: GeolocationPosition) => {
+            const lat = position.coords.latitude
+            const lng = position.coords.longitude
+
+            console.log("GPS:", lat, lng)
+
+            setCoords({
+                latitude: lat,
+                longitude: lng
             })
-        }    
+
+            setCoordsStatus(false)
+        }
+
+        const handleError = async (error: GeolocationPositionError | any) => {
+            console.error("Erro geolocation:", error)
+
+            // 👉 Fallback para IP
+            try {
+                const response = await fetch("https://ipapi.co/json/")
+                const data = await response.json()
+
+                const lat = data.latitude
+                const lng = data.longitude
+
+                console.log("IP fallback:", lat, lng)
+
+                setCoords({
+                    latitude: lat,
+                    longitude: lng
+                })
+
+            } catch (err) {
+                console.error("Erro fallback IP:", err)
+            }
+
+            setCoordsStatus(false)
+        }
+
+        try {
+            const permission = await navigator.permissions.query({ name: "geolocation" })
+
+            if (permission.state === "denied") {
+                // Já vai direto pro fallback
+                return handleError({ code: 1 })
+            }
+
+            navigator.geolocation.getCurrentPosition(
+                handleSuccess,
+                handleError,
+                {
+                    enableHighAccuracy: false, // 🔥 melhor para desktop
+                    timeout: 5000,            // 🔥 evita timeout rápido
+                    maximumAge: 60000
+                }
+            )
+
+        } catch (err) {
+            console.error("Erro ao verificar permissão:", err)
+            handleError(err)
+        }
     }
     
     useEffect(() => {getCoords()}, [])
@@ -138,7 +185,7 @@ const FormAbrirChamado = () => {
                     coordsStatus && (
                         <div className="pt-3 flex justify-center">
                         <button
-                        disabled={pending}
+                        disabled={coordsStatus}
                         type="button"
                         onClick={getCoords}
                         className="disabled:bg-gray-400 disabled:opacity-50 cursor-pointer max-w-70 sm:max-w-3xl w-full sm:w-auto block text-center bg-blue-400 hover:bg-blue-500 text-white font-bold py-3 px-8 sm:px-10 rounded-2xl"

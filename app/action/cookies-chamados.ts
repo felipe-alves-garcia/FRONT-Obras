@@ -33,6 +33,21 @@ export const setCookiesChamados = async (id: string) => {
     }
 }
 
+export const setCookiesToken = async (token: string) => {
+    try{
+        const cookieStore = await cookies()
+        cookieStore.set({
+            name: "token",
+            value: JSON.stringify([token]),
+        });    
+        return true
+    } catch(error){
+        return false
+    }
+    
+
+}
+
 export const deleteCookieChamado = async ({id}: {id: string}) => {
     const cookieStore = await cookies()
     const chamados = cookieStore.get("chamados")?.value
