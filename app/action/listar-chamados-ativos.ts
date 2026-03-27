@@ -1,6 +1,6 @@
 "use server"
 
-export const listarChamados = async () => {
+export const listarChamadosAtivos = async () => {
 
     const url = `${process.env.URL_API}:${process.env.PORT_API}`
 
