@@ -126,9 +126,6 @@ const BuscarChamado = (props: {id: string, token: string}) => {
                 <h1 className="mb-2 font-medium text-blue-400">Chamado: 
                     <span className="leading-5 text-lg font-bold text-gray-700">&nbsp;{chamado?.ticket?.hashCode}</span>
                 </h1>
-                <p className="mb-2 font-medium text-blue-400">Descrição: 
-                    <span className="leading-5 text-lg font-bold text-gray-700">&nbsp;{chamado?.ticket?.description}</span>
-                </p>   
                 <p className="mb-2 font-medium text-blue-400">Criado em: 
                     <span className="leading-5 text-lg font-bold text-gray-700">&nbsp;{chamado?.ticket?.createdAt[0]}/{chamado?.ticket?.createdAt[1]}/{chamado?.ticket?.createdAt[2]}</span>
                 </p> 
@@ -144,6 +141,9 @@ const BuscarChamado = (props: {id: string, token: string}) => {
                 <p className="mb-2 font-medium text-blue-400">Bairro: 
                     <span className="leading-5 text-lg font-bold text-gray-700">&nbsp;{chamado?.ticket?.block}</span>
                 </p> 
+                <p className="mb-2 font-medium text-blue-400">Descrição: 
+                    <span className="leading-5 text-lg font-bold text-gray-700">&nbsp;{chamado?.ticket?.description}</span>
+                </p>   
                 <div className="flex justify-center my-20">
                     <div className="bg-blue-100 w-80 sm:px-10 text-center font-bold text-blue-400 py-5 border-4 border-blue-300 rounded-[100]">
                         {

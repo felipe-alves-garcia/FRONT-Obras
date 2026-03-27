@@ -170,10 +170,7 @@ const BuscarChamado = ({id}: {id:string}) => {
                        )
                     }
                 </div>
-            </div>
-            <p className="mb-2 font-medium text-blue-400">Descrição: 
-                <span className="leading-5 font-bold text-gray-700">&nbsp;{chamado?.ticket?.description}</span>
-            </p>        
+            </div>       
             <p className="mb-2 font-medium text-blue-400">Criado em: 
                 <span className="leading-5 font-bold text-gray-700">&nbsp;{chamado?.ticket?.createdAt[0]}/{chamado?.ticket?.createdAt[1]}/{chamado?.ticket?.createdAt[2]}</span>
             </p>  
@@ -189,6 +186,9 @@ const BuscarChamado = ({id}: {id:string}) => {
             <p className="mb-2 font-medium text-blue-400">Bairro: 
                 <span className="leading-5 font-bold text-gray-700">&nbsp;{chamado?.ticket?.block}</span>
             </p>       
+            <p className="mb-2 font-medium text-blue-400">Descrição: 
+                <span className="leading-5 font-bold text-gray-700">&nbsp;{chamado?.ticket?.description}</span>
+            </p> 
             {
                 chamado?.imageURI != null && (
                     <div className="flex justify-center sm:px-20 mt-10">

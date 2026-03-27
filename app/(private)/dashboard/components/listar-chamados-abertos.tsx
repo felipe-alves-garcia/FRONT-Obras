@@ -211,7 +211,7 @@ const ListarChamados = () => {
                                             }
                                         </div>
                                         <p>Código: <span className="leading-5 font-bold text-gray-700">{chamado?.ticket?.hashCode}</span></p>
-                                        <p>Descrição: <span className="leading-5 font-bold text-gray-700">{chamado?.ticket?.description}</span></p>
+                                        <p className="line-clamp-3">Descrição: <span className="leading-5 font-bold text-gray-700">{chamado?.ticket?.description}</span></p>
                                     </div>    
                                 </div>
                                 <p className="absolute left-0 bottom-0 text-gray-400 text-sm font-normal pb-3 pl-3">Atualizado em {chamado?.ticket?.updatedAt[2]}/{chamado?.ticket?.updatedAt[1]}/{chamado?.ticket?.updatedAt[0]}</p>
@@ -308,7 +308,7 @@ const ListarChamados = () => {
                                             }
                                         </div>
                                         <p>Código: <span className="leading-5 font-bold text-gray-700">{chamado?.ticket?.hashCode}</span></p>
-                                        <p>Descrição: <span className="leading-5 font-bold text-gray-700">{chamado?.ticket?.description}</span></p>
+                                        <p className="line-clamp-3">Descrição: <span className="leading-5 font-bold text-gray-700">{chamado?.ticket?.description}</span></p>
                                     </div>    
                                 </div>
                                 <p className="absolute left-0 bottom-0 text-gray-400 text-sm font-normal pb-3 pl-3">Atualizado em {chamado?.ticket?.updatedAt[2]}/{chamado?.ticket?.updatedAt[1]}/{chamado?.ticket?.updatedAt[0]}</p>
