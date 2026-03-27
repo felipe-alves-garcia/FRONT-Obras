@@ -39,7 +39,7 @@ const BuscarChamado = ({id}: {id:string}) => {
             longitude:0,
             id:""
         },
-        imageURI:""
+        imageURI:null
     })
 
     useEffect(() => {
@@ -49,7 +49,6 @@ const BuscarChamado = ({id}: {id:string}) => {
             console.log("Erro --> ", error)
         })
         buscarChamado(id).then((resp) => {
-            console.log(resp)
             setChamado(resp)
         }).catch((error) => {
             console.log("Error --> "+error)

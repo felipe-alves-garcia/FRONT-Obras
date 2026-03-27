@@ -30,7 +30,7 @@ const ListarChamados = () => {
             createdAt:[],
             updatedAt:[]
         },
-        imageURI:""
+        imageURI:null
     }])
     const [ chamadosAtivos, setChamadosAtivos ] = useState([{
         ticket: {
@@ -43,7 +43,7 @@ const ListarChamados = () => {
             createdAt:[],
             updatedAt:[]
         },
-        imageURI:""
+        imageURI:null
     }])
 
     useEffect(() => {

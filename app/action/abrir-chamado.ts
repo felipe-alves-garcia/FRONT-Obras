@@ -10,7 +10,10 @@ const abrirChamadoSchema = z.object({
     street: z.string().trim().max(150, {error: "Nome de bairro muito grande"}),
     block: z.string().trim().max(80, {error: "Nome de rua muito grande"}),
     referencePoint: z.string().trim().max(100, {error: "Ponto de referência muito grande"}),
-    phoneNumber: z.string({error:"Número de telefone inválido"}).min(11, {error:"Número de telefone muito pequeno (ex:51912345678)"}).max(12, {error:"Número de telefone muito grande (ex:51912345678)"})
+    phoneNumber: z.string({error:"Número de telefone inválido"})
+        .regex(/^\d+$/, { error: "Número de telefone deve conter apenas números. " })
+        .min(11, {error:"Número de telefone muito pequeno (ex:51912345678). "})
+        .max(12, {error:"Número de telefone muito grande (ex:51912345678). "})
 })
 
 

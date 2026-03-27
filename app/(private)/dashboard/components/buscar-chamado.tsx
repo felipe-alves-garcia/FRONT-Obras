@@ -12,16 +12,19 @@ import "leaflet/dist/leaflet.css"
 const BuscarChamado = (props: {id: string, token: string}) => {
 
     const createMap = (latitude:number, longitude:number) => {
-       const map = L.map('map').setView([latitude, longitude], 13);
+        import("leaflet").then((LModule) => {
+            const L = LModule.default
+            const map = L.map('map').setView([latitude, longitude], 13);
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap'
-        }).addTo(map);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap'
+            }).addTo(map);
 
-        L.marker([latitude, longitude])
-        .addTo(map)
-        .bindPopup("Local do chamado")
-        .openPopup();  
+            L.marker([latitude, longitude])
+            .addTo(map)
+            .bindPopup("Local do chamado")
+            .openPopup();  
+        })
     }
 
     //---
@@ -47,7 +50,7 @@ const BuscarChamado = (props: {id: string, token: string}) => {
             longitude:0,
             id:"",
         },
-        imageURI:""
+        imageURI:null
     })
 
     const carregarChamado = async () => {

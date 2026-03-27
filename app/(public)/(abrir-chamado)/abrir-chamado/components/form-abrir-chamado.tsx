@@ -64,8 +64,6 @@ const FormAbrirChamado = () => {
             const lat = position.coords.latitude
             const lng = position.coords.longitude
 
-            console.log("GPS:", lat, lng)
-
             setCoords({
                 latitude: lat,
                 longitude: lng
@@ -84,8 +82,6 @@ const FormAbrirChamado = () => {
 
                 const lat = data.latitude
                 const lng = data.longitude
-
-                console.log("IP fallback:", lat, lng)
 
                 setCoords({
                     latitude: lat,
@@ -169,7 +165,7 @@ const FormAbrirChamado = () => {
                     <Input 
                         id="telefone" 
                         name="telefone"
-                        type="number" 
+                        type="tel" 
                         placeholder="Digite seu telefone" 
                         required
                         value={phoneNumber}

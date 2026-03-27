@@ -33,7 +33,8 @@ const LoginForm = () => {
                     <Label htmlFor="cpf">CPF</Label>
                     <Input
                         name="cpf"
-                        type="number"
+                        type="text"
+                        inputMode="numeric"
                         placeholder="Digite seu CPF"
                         required
                         value={cpf}
