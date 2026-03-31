@@ -13,6 +13,7 @@ const loginSchema = z.object({
 export const loginUser = async (prevState:any, formData:FormData) => {
     
     const url = `${process.env.URL_API}:${process.env.PORT_API}/`
+    const errosAPI: string[] = []
 
     //---
 
@@ -59,8 +60,11 @@ export const loginUser = async (prevState:any, formData:FormData) => {
         
     } catch(error){
         console.log("Erro --> ", error)
+        errosAPI.push("Erro ao se conectar com a API e com o Banco de Dados.")
     }
     
     if (verifyCookies) redirect("/dashboard")
+
+    return { errosAPI: errosAPI }
 }
 

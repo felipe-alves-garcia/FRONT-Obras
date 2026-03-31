@@ -7,8 +7,11 @@ import { useActionState, useState, useEffect } from "react"
 
 import { loginUser } from "@/app/action/login"
 
+import LoadErros from "@/components/global/load-erros"
+
 const LoginForm = () => {
 
+    const [ errosAPI, setErrosAPI ] = useState<string[]>([])
     const [ state, action, pending ] = useActionState(loginUser, null)
 
     //---
@@ -22,12 +25,14 @@ const LoginForm = () => {
 
         setCpf(String(cpfTest))
         setPassword(String(passwordTest))
+        setErrosAPI(state?.errosAPI || [])
     }, [state?.values])
 
     //---
 
     return (
         <>
+            <LoadErros erros={errosAPI} />  
             <form className="mt-20" action={action}>
                 <fieldset className="mb-5">
                     <Label htmlFor="cpf">CPF</Label>
