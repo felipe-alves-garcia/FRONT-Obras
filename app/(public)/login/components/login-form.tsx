@@ -26,7 +26,7 @@ const LoginForm = () => {
         setCpf(String(cpfTest))
         setPassword(String(passwordTest))
         setErrosAPI(state?.errosAPI || [])
-    }, [state?.values])
+    }, [state])
 
     //---
 

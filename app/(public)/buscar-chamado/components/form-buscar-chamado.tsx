@@ -6,6 +6,7 @@ import { useActionState, useEffect, useState } from "react";
 import { redirect } from "next/navigation";
 
 import LoadErros from "@/components/global/load-erros"
+import Loading from "@/components/global/loading"
 
 import { verifyBuscarChamado } from "@/app/action/verify-buscar-chamado";
 
@@ -28,6 +29,7 @@ const FormBuscarChamado = ({path}:{path:string}) => {
 
     return (
         <>
+            <Loading status={pending}/>
             <LoadErros erros={errosAPI}/>
             <form className={`sm:max-w-3xl w-full sm:px-5`} action={action}>
                 <fieldset className="mt-20">

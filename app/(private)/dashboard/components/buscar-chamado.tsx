@@ -55,8 +55,8 @@ const BuscarChamado = (props: {id: string, token: string}) => {
 
     const carregarChamado = async () => {
         buscarChamado(props.id).then((resp) => {
-            setChamado(resp)
-            createMap(resp.ticket.latitude, resp.ticket.longitude)
+            setChamado(resp.data)
+            createMap(resp.data.ticket.latitude, resp.data.ticket.longitude)
         }).catch((error) => {
             console.log("Erro --> ", error)
         })
