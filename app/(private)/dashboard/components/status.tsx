@@ -4,12 +4,16 @@ import { buscarStatus } from "@/app/action/buscar-status"
 
 import { useEffect, useState } from "react"
 
+import LoadErros from "@/components/global/load-erros"
+
 const Status = () => {
 
+    const [ errosAPI, setErrosAPI ] = useState<string[]>([])
     const [ status, setStatus ] = useState<{ status: string; count: number; }[] | undefined>([{status:"", count:0}])
     useEffect(() => {
         buscarStatus().then((resp) => {
-            setStatus(resp)
+            setStatus(resp.data)
+            setErrosAPI(resp.errosAPI)
         }).catch((error) => {
             console.log(error)
         })
@@ -17,6 +21,7 @@ const Status = () => {
 
     return (
         <>
+            <LoadErros erros={errosAPI}/>
             {
                 status && (
                     <div className="px-2">

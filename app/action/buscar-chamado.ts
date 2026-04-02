@@ -11,7 +11,14 @@ export const buscarChamado = async (id:string) => {
         const response = await fetch(`${url}chamado/hash?code=${id}`, {
             method:"GET"
         })
-        return {data:await response.json(), errosAPI: errosAPI}
+        const data = await response.json()
+        
+        if (data?.statusCode == 404){
+            errosAPI.push("Erro ao se conectar com a API e com o Banco de Dados.")
+            return { errosAPI: errosAPI, data:{}}
+        }
+        
+        return {data:data, errosAPI: errosAPI}
     }
     catch (error){
         console.log("Erro --> ", error)

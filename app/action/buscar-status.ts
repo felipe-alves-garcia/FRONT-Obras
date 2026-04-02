@@ -3,6 +3,7 @@
 export const buscarStatus = async () => {
 
     const url = `${process.env.URL_API}:${process.env.PORT_API}/`
+    const errosAPI: string[] = []
 
     //---
 
@@ -32,9 +33,12 @@ export const buscarStatus = async () => {
                 if (data[i].status == newData[n].status) newData[n].count = data[i].count
             }
         }
-        return newData
+        return { data: newData, errosAPI: errosAPI }
     } catch(error){
         console.log("Erro --> ",error)
+        errosAPI.push("Não foi possível listar o número de chamados por estado.")
+        errosAPI.push("Erro ao se conectar com a API e com o Banco de Dados.")
+        return { data: [], errosAPI: errosAPI }
     }
 
 }

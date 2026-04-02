@@ -19,7 +19,7 @@
 
     export const abrirChamado = async (prevState: any, formData: FormData) => {
 
-        const MAX_SIZE_IMG = 10 * 1024 * 1024 //Ajustar depois
+        const MAX_SIZE_IMG = 5 * 1024 * 1024
         const url = `${process.env.URL_API}:${process.env.PORT_API}/`
         const errosAPI: string[] = []
 

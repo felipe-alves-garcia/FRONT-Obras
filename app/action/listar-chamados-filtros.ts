@@ -10,7 +10,7 @@ export const listarChamadosFiltros = async (pendent:Boolean, recieved:Boolean, w
             "checkField": pendent
         },
         {
-            "ticketStatus": "RECIEVED",
+            "ticketStatus": "RECEIVED",
             "checkField": recieved
         },
         {
