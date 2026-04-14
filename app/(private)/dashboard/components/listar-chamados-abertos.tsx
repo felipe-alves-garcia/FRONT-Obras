@@ -16,7 +16,7 @@ import { stat } from "node:fs/promises"
 const ListarChamados = (props:{token:string}) => {
 
     const [ pendent, setPendent ] = useState(false)
-    const [ recieved, setRecieved ] = useState(false)
+    const [ received, setReceived ] = useState(false)
     const [ working, setWorking ] = useState(false)
     const [ finished, setFinished ] = useState(false)
 
@@ -85,7 +85,7 @@ const ListarChamados = (props:{token:string}) => {
         setStatusLoading(true)
         listarChamadosFiltros(
             pendent,
-            recieved, 
+            received, 
             working,
             finished,
             props.token
@@ -98,7 +98,7 @@ const ListarChamados = (props:{token:string}) => {
             console.log("Erro --> ", error)
             setErrosAPI(["Erro interno do site.", error])
         })
-    }, [pendent, recieved, working, finished])
+    }, [pendent, received, working, finished])
 
     return (
         <>  
@@ -119,12 +119,12 @@ const ListarChamados = (props:{token:string}) => {
                 <div className="flex items-center px-5">
                     <Input
                         className="w-5 ml-5"
-                        name="recieved" 
+                        name="RECEIVED" 
                         type="checkbox"
-                        checked={recieved}
-                        onChange={(e) => {setRecieved(e.target.checked)}}
+                        checked={received}
+                        onChange={(e) => {setReceived(e.target.checked)}}
                     />
-                    <Label htmlFor="recieved" className="inline m-0 text-lg ps-3">Em Análise</Label>
+                    <Label htmlFor="RECEIVED" className="inline m-0 text-lg ps-3">Em Análise</Label>
                 </div>
                 <div className="flex items-center px-5">
                     <Input
@@ -217,7 +217,7 @@ const ListarChamados = (props:{token:string}) => {
                                                     )
                                                 }
                                                 {
-                                                    chamado?.ticket?.ticketStatus == "RECIEVED" && (
+                                                    chamado?.ticket?.ticketStatus == "RECEIVED" && (
                                                         <div className="px-5 bg-yellow-400 rounded-[100]"></div>
                                                     )
                                                 }
@@ -315,7 +315,7 @@ const ListarChamados = (props:{token:string}) => {
                                                     )
                                                 }
                                                 {
-                                                    chamado?.ticket?.ticketStatus == "RECIEVED" && (
+                                                    chamado?.ticket?.ticketStatus == "RECEIVED" && (
                                                         <div className="px-5 bg-yellow-400 rounded-[100]"></div>
                                                     )
                                                 }

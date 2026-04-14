@@ -16,7 +16,7 @@ export const buscarStatus = async () => {
                 count:0
             },
             {
-                status:"RECIEVED",
+                status:"RECEIVED",
                 count:0
             },
             {

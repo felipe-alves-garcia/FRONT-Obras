@@ -104,7 +104,7 @@ const BuscarChamado = ({id}: {id:string}) => {
                             )
                         }
                         {
-                            chamado?.ticket?.ticketStatus == "RECIEVED" && (
+                            chamado?.ticket?.ticketStatus == "RECEIVED" && (
                                 <div className="sm:px-20 pb-10 pt-5">
                                     <div className="w-full bg-yellow-200 py-10 rounded-3xl border-2 border-yellow-500">
                                         <p className="text-yellow-500 text-center font-bold text-xl">
@@ -236,7 +236,7 @@ const BuscarChamado = ({id}: {id:string}) => {
                                                     )
                                                 }
                                                 {
-                                                    update?.ticketStatus == "RECIEVED" && (
+                                                    update?.ticketStatus == "RECEIVED" && (
                                                         <p className="text-gray-700">Atualizado para: <span className="font-bold text-gray-700">Em Análise</span></p>
                                                     )
                                                 }

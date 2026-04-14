@@ -133,7 +133,7 @@ const BuscarChamado = (props: {id: string, token: string}) => {
                                             )    
                                         }
                                         {
-                                            chamado?.ticket?.ticketStatus == "RECIEVED" && (
+                                            chamado?.ticket?.ticketStatus == "RECEIVED" && (
                                                 <div className="bg-yellow-100 px-5 text-center font-bold text-yellow-400 py-3 border-4 border-yellow-300 rounded-[100]">
                                                     <p>Em Análise</p>
                                                 </div>  
@@ -168,7 +168,7 @@ const BuscarChamado = (props: {id: string, token: string}) => {
                                             )    
                                         }
                                         {
-                                            statusUpdate == "RECIEVED" && (
+                                            statusUpdate == "RECEIVED" && (
                                                 <div className="bg-yellow-100 px-5 text-center font-bold text-yellow-400 py-3 border-4 border-yellow-300 rounded-[100]">
                                                     <p>Em Análise</p>
                                                 </div>  
@@ -275,11 +275,11 @@ const BuscarChamado = (props: {id: string, token: string}) => {
                                         <i className="font-bold bi bi-envelope-paper-fill mr-5"></i>
                                         <p className="font-bold">Em Aberto</p>
                                     </button>
-                                    <button onClick={() => {if(chamado?.ticket?.ticketStatus != "RECIEVED"){ 
+                                    <button onClick={() => {if(chamado?.ticket?.ticketStatus != "RECEIVED"){ 
                                             setModelStatus("block")
-                                            setStatusUpdate("RECIEVED")
+                                            setStatusUpdate("RECEIVED")
                                         }}} className={
-                                            chamado?.ticket?.ticketStatus == "RECIEVED"
+                                            chamado?.ticket?.ticketStatus == "RECEIVED"
                                             ? "flex justify-center text-yellow-500 border-1 border-yellow-400 rounded-sm py-3 bg-yellow-200"
                                             : "flex justify-center cursor-pointer text-gray-500 hover:bg-gray-300 border-1 border-gray-400 rounded-sm py-3 bg-gray-200"
                                         }>
@@ -385,7 +385,7 @@ const BuscarChamado = (props: {id: string, token: string}) => {
                                                             )
                                                         }
                                                         {
-                                                            update?.ticketStatus == "RECIEVED" && (
+                                                            update?.ticketStatus == "RECEIVED" && (
                                                                 <p className="text-gray-700">Atualizado para: <span className="font-bold text-gray-700">Em Análise</span></p>
                                                             )
                                                         }

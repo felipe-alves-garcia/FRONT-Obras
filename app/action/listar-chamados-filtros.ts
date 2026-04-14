@@ -1,6 +1,6 @@
 "use server"
 
-export const listarChamadosFiltros = async (pendent:Boolean, recieved:Boolean, working:Boolean, finished:Boolean, token:string) => {
+export const listarChamadosFiltros = async (pendent:Boolean, received:Boolean, working:Boolean, finished:Boolean, token:string) => {
 
     const url = `${process.env.URL_API}:${process.env.PORT_API}`
     const errosAPI: string[] = []
@@ -12,7 +12,7 @@ export const listarChamadosFiltros = async (pendent:Boolean, recieved:Boolean, w
         },
         {
             "ticketStatus": "RECEIVED",
-            "checkField": recieved
+            "checkField": received
         },
         {
             "ticketStatus": "WORKING",
