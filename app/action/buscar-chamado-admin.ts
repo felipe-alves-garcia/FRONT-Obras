@@ -1,15 +1,15 @@
 "use server"
 
-export const buscarChamado = async (id:string) => {
-
+export const buscarChamadoAdmin = async (id:string, token:string) => {
     const url = `${process.env.URL_API}:${process.env.PORT_API}/`
     const errosAPI: string[] = []
 
     //---
 
     try{
-        const response = await fetch(`${url}chamado/hash?code=${id}`, {
-            method:"GET"
+        const response = await fetch(`${url}chamado/admin/${id}`, {
+            method:"GET",
+            headers:{"Content-Type": "application/json", "authorization": token}
         })
         const data = await response.json()
         
@@ -17,13 +17,11 @@ export const buscarChamado = async (id:string) => {
             errosAPI.push("Erro ao se conectar com a API e com o Banco de Dados.")
             return { errosAPI: errosAPI, data:{}}
         }
-        
         return {data:data, errosAPI: errosAPI}
     }
     catch (error){
-        console.log("Erro --> ", error)
         errosAPI.push("Erro ao se conectar com a API e com o Banco de Dados.")
-        return { errosAPI: errosAPI, data:{}}
+        return { errosAPI: errosAPI, data:{}}   
     }
 
 }

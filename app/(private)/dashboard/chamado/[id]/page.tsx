@@ -36,7 +36,7 @@ const ChamadoPage = async ({params}: ChamadoProps) => {
                 </header>
                 <div className="flex flex-col items-center min-h-screen px-5 sm:px-10 relative">
                     <div className="sm:w-full relative">
-                        <BuscarChamado id={id} token={token}/>
+                        <BuscarChamado id={id} token={token[0]}/>
                     </div>
                 </div>    
             </main>

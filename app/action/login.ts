@@ -40,13 +40,13 @@ export const loginUser = async (prevState:any, formData:FormData) => {
     try{
         const response = await fetch(`${url}auth`, {
             headers: {
-                "Content-Type": "application/json" // Avisa o servidor que você está enviando JSON
+                "Content-Type": "application/json"
             },
             method:"POST",
             body:   JSON.stringify(formValues)
         })
         const resp = await response.json()
-        const token = resp.token
+        const token = resp?.token
 
         if (token == undefined) return {
             error: {
@@ -67,4 +67,3 @@ export const loginUser = async (prevState:any, formData:FormData) => {
 
     return { errosAPI: errosAPI }
 }
-

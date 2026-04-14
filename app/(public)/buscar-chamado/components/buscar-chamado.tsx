@@ -1,6 +1,6 @@
 "use client"
 
-import { buscarChamado } from "@/app/action/buscar-chamado"
+import { buscarChamadoUser } from "@/app/action/buscar-chamado-user"
 import { urlApi } from "@/app/action/url-api"
 
 import LoadErros from "@/components/global/load-erros"
@@ -42,7 +42,16 @@ const BuscarChamado = ({id}: {id:string}) => {
             updatedAt:[],
             latitude:0,
             longitude:0,
-            id:""
+            id:"",
+            ticketMessageList:[{
+                ticketStatus:"",
+                generalDescription:"",
+                createdAt:"",
+                internalUser:{
+                    userName:""
+                }
+
+            }]
         },
         imageURI:null
     })
@@ -52,15 +61,17 @@ const BuscarChamado = ({id}: {id:string}) => {
             setUrl(resp)
         }).catch((error) => {
             console.log("Erro --> ", error)
+            setErrosAPI(["Erro interno do site.", error])
         })
         setStatusLoading(true)
-        buscarChamado(id).then((resp) => {
+        buscarChamadoUser(id).then((resp) => {
             setChamado(resp.data)
             setErrosAPI(resp.errosAPI)
             setStatusLoading(false)
         }).catch((error) => {
             setStatusLoading(false)
-            console.log("Error --> "+error)
+            console.log("Error --> ", error)
+            setErrosAPI(["Erro interno do site.", error])
         })
     }, [])
 
@@ -210,6 +221,49 @@ const BuscarChamado = ({id}: {id:string}) => {
                                 </div>
                             )
                         }
+                        <div className="mt-15 mb-20">
+                            <p className="leading-5 text-lg font-bold text-gray-700 pb-3">
+                                Alterações: 
+                            </p>  
+                            <div className="px-6 sm:px-10 py-6 sm:py-10 space-y-1 bg-gray-100 mb-15 rounded-3xl text-sm sm:text-md">
+                                {
+                                    chamado.ticket.ticketMessageList.map((update, index) => {
+                                        return (
+                                            <>
+                                                {
+                                                    update?.ticketStatus == "PENDENT" && (
+                                                        <p className="text-gray-700">Atualizado para: <span className="font-bold text-gray-700">Em Aberto</span></p>
+                                                    )
+                                                }
+                                                {
+                                                    update?.ticketStatus == "RECIEVED" && (
+                                                        <p className="text-gray-700">Atualizado para: <span className="font-bold text-gray-700">Em Análise</span></p>
+                                                    )
+                                                }
+                                                {
+                                                    update?.ticketStatus == "WORKING" && (
+                                                        <p className="text-gray-700">Atualizado para: <span className="font-bold text-gray-700">Em Trabalho</span></p>
+                                                    )
+                                                }
+                                                {
+                                                    update?.ticketStatus == "FINISHED" && (
+                                                        <p className="text-gray-700">Atualizado para: <span className="font-bold text-gray-700">Finalizado</span></p>
+                                                    )
+                                                }
+                                                <p className="text-gray-700">Comentário Geral: <span className="font-bold text-gray-700">{update.generalDescription}</span></p>
+                                                <p className="text-gray-700">Usuário Responsável: <span className="font-bold text-gray-700">{update.internalUser.userName}</span></p>
+                                                <p className="text-gray-700">Data: <span className="font-bold text-gray-700">{update.createdAt[2]}/{update.createdAt[1]}/{update.createdAt[0]}</span></p>
+                                                {
+                                                    index != chamado.ticket.ticketMessageList.length-1 && (
+                                                        <hr className="border-gray-200 border-2 my-3 "/>
+                                                    )
+                                                }
+                                            </>
+                                        )
+                                    })
+                                }    
+                            </div>
+                        </div>
                     </>
                 )
             }

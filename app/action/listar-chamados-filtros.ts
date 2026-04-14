@@ -1,8 +1,9 @@
 "use server"
 
-export const listarChamadosFiltros = async (pendent:Boolean, recieved:Boolean, working:Boolean, finished:Boolean) => {
+export const listarChamadosFiltros = async (pendent:Boolean, recieved:Boolean, working:Boolean, finished:Boolean, token:string) => {
 
     const url = `${process.env.URL_API}:${process.env.PORT_API}`
+    const errosAPI: string[] = []
 
     const bodyFiltro = [
         {
@@ -27,15 +28,16 @@ export const listarChamadosFiltros = async (pendent:Boolean, recieved:Boolean, w
 
     try{
         const response = await fetch(`${url}/chamado/filtro`, {
-            headers:{"Content-Type": "application/json"},
+            headers:{"Content-Type": "application/json", "authorization": token},
             method:"POST",
             body:JSON.stringify(bodyFiltro)
         })
         const data = await response.json()
-        return {data:data, error:""}
+        return {data:data, error:"", errosAPI: errosAPI}
     } catch(error){
         console.log("Erro --> ", error)
-        return {data:[], error:"Não foi possível listar chamados"}
+        errosAPI.push("Erro ao se conectar com a API e com o Banco de Dados.")
+        return {data:[], error:"Não foi possível listar chamados", errosAPI: errosAPI}
     }
 
 }

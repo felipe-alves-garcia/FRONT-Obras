@@ -15,7 +15,8 @@ const Status = () => {
             setStatus(resp.data)
             setErrosAPI(resp.errosAPI)
         }).catch((error) => {
-            console.log(error)
+            console.log("Erro --> ", error)
+            setErrosAPI(["Erro interno do site.", error])
         })
     }, [])
 

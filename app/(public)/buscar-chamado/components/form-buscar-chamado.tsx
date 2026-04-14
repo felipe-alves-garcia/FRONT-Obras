@@ -19,6 +19,7 @@ const FormBuscarChamado = ({path}:{path:string}) => {
     useEffect(() => {
         if(state?.status){
             setErro("")
+            if(path == "dashboard/chamado") redirect(`/${path}/${state.id}`)
             redirect(`/${path}/${state.hashcode}`)
         }
         else if(state?.status != null){

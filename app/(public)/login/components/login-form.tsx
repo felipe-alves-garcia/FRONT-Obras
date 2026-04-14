@@ -7,6 +7,7 @@ import { useActionState, useState, useEffect } from "react"
 
 import { loginUser } from "@/app/action/login"
 
+import Loading from "@/components/global/loading"
 import LoadErros from "@/components/global/load-erros"
 
 const LoginForm = () => {
@@ -31,7 +32,8 @@ const LoginForm = () => {
     //---
 
     return (
-        <>
+        <> 
+            <Loading status={pending}/>
             <LoadErros erros={errosAPI} />  
             <form className="mt-20" action={action}>
                 <fieldset className="mb-5">

@@ -104,6 +104,7 @@ const FormAbrirChamado = () => {
 
             } catch (err) {
                 console.error("Erro fallback IP:", err)
+                setErrosAPI(["Erro interno do site.", String(err)])
             }
 
             setCoordsStatus(false)

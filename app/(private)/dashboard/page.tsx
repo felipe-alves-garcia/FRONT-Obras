@@ -46,7 +46,7 @@ const DashboardPage = async () => {
                             <h2 className="inline text-2xl text-gray-600 font-bold">Chamados</h2>
                             <hr className="mt-2 flex-1 border-gray-600 border-1 rounded-xl ml-5"/>
                         </div>
-                        <ListarChamados/>
+                        <ListarChamados token={token}/>
                     </div>
                 </div>    
             </main>
