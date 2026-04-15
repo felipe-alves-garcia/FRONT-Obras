@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 import { abrirChamado } from "@/app/action/abrir-chamado";
+import { verifyFormValues } from "@/app/action/verify-form-values";
 
 const FormAbrirChamado = () => {
 
@@ -22,6 +23,15 @@ const FormAbrirChamado = () => {
 
     const [ image, setImage] = useState<File | null>(null)
     const [ erroImage, setErroImage ] = useState("")
+    const [ errosForm, setErrosForm ] = useState<{
+        name:string[] | null, 
+        email:string[] | null,
+        street:string[] | null,
+        block:string[] | null,
+        referencePoint:string[] | null,
+        description:string[] | null,
+        phoneNumber:string[] | null
+    }>({name:null, email:null, street:null, block:null, referencePoint:null, description:null, phoneNumber:null})
 
     //---
 
@@ -51,13 +61,7 @@ const FormAbrirChamado = () => {
         setReferencePoint(String(referencePointTest))
 
         setErrosAPI(state?.errosAPI || [])
-        if (state?.imagem == false && state?.values){
-            setImage(null)
-            setErroImage("Imagem muito grande (Limite de 10MB)")
-        }
-        else{
-            setErroImage("")
-        }
+        setImage(null)
     }, [state?.values])
 
     //---
@@ -156,8 +160,8 @@ const FormAbrirChamado = () => {
                             onChange={(e) => {setName(e.target.value)}}
                         />
                         {
-                            state?.error?.name && (
-                                <p className="ml-1 mt-1 text-xs text-red-500">{state?.error?.name}</p>
+                            errosForm?.name && (
+                                <p className="ml-1 mt-1 text-xs text-red-500">{errosForm?.name}</p>
                             )
                         }
                     </fieldset>
@@ -173,8 +177,8 @@ const FormAbrirChamado = () => {
                             onChange={(e) => {setEmail(e.target.value)}}
                         />
                         {
-                            state?.error?.email && (
-                                <p className="ml-1 mt-1 text-xs text-red-500">{state?.error?.email}</p>
+                            errosForm?.email && (
+                                <p className="ml-1 mt-1 text-xs text-red-500">{errosForm?.email}</p>
                             )
                         }
                     </fieldset>
@@ -190,8 +194,8 @@ const FormAbrirChamado = () => {
                             onChange={(e) => {setPhoneNumber(e.target.value)}}
                         />
                         {
-                            state?.error?.phoneNumber && (
-                                <p className="ml-1 mt-1 text-xs text-red-500">{state?.error?.phoneNumber}</p>
+                            errosForm?.phoneNumber && (
+                                <p className="ml-1 mt-1 text-xs text-red-500">{errosForm?.phoneNumber}</p>
                             )
                         }
                     </fieldset>
@@ -219,6 +223,11 @@ const FormAbrirChamado = () => {
                             onChange={(e) => {setStreet(e.target.value)}}
                             required
                         />
+                        {
+                            errosForm?.street && (
+                                <p className="ml-1 mt-1 text-xs text-red-500">{errosForm?.street}</p>
+                            )
+                        }
                     </fieldset>
                     <fieldset className="py-3">
                         <Label htmlFor="bairro">Bairro</Label>
@@ -231,7 +240,13 @@ const FormAbrirChamado = () => {
                             onChange={(e) => {setBlock(e.target.value)}}
                             required
                         />
+                        {
+                            errosForm?.block && (
+                                <p className="ml-1 mt-1 text-xs text-red-500">{errosForm?.block}</p>
+                            )
+                        }
                     </fieldset>
+                    
                     <fieldset className="py-3">
                         <Label htmlFor="ponto">Ponto de Referência</Label>
                         <Input 
@@ -244,8 +259,8 @@ const FormAbrirChamado = () => {
                             required
                         />
                         {
-                            state?.error?.referencePoint && (
-                                <p className="ml-1 mt-1 text-xs text-red-500">{state?.error?.referencePoint}</p>
+                            errosForm?.referencePoint && (
+                                <p className="ml-1 mt-1 text-xs text-red-500">{errosForm?.referencePoint}</p>
                             )
                         }
                     </fieldset>
@@ -261,8 +276,8 @@ const FormAbrirChamado = () => {
                             required
                         />
                         {
-                            state?.error?.description && (
-                                <p className="ml-1 mt-1 text-xs text-red-500">{state?.error?.description}</p>
+                            errosForm?.description && (
+                                <p className="ml-1 mt-1 text-xs text-red-500">{errosForm?.description}</p>
                             )
                         }
                     </fieldset>
@@ -312,7 +327,33 @@ const FormAbrirChamado = () => {
                     <div className="pt-10 pb-20 flex justify-center">
                         <button
                         disabled={pending}
-                        onClick={() => {setForm("hidden"); setProblem("block")}}
+                        onClick={() => {
+                            verifyFormValues(
+                                name,
+                                email, 
+                                street, 
+                                block, 
+                                description, 
+                                referencePoint, 
+                                phoneNumber,
+                                image
+                            ).then((resp) => {
+                                setErrosForm(resp.error)
+                                if (resp.status){
+                                    setForm("hidden")
+                                    setProblem("block")
+                                }
+                                else {
+                                    if (state?.imagem == false){
+                                        setImage(null)
+                                        setErroImage("Imagem muito grande (Limite de 10MB)")
+                                    }
+                                    else{
+                                        setErroImage("")
+                                    }
+                                }
+                            })
+                        }}
                         type="button"
                         className="disabled:bg-gray-400 disabled:opacity-50 cursor-pointer max-w-70 sm:max-w-3xl w-full sm:w-auto block text-center bg-blue-400 hover:bg-blue-500 text-white font-bold py-3 px-8 sm:px-10 rounded-2xl mt-4"
                         >Próximo<i className="ml-4 bi bi-arrow-right-circle"></i></button>
