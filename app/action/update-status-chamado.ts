@@ -8,22 +8,23 @@ export const updateStatusChamado = async (id: string, status: string, token: str
     //---
 
     try{
-        if(generalDescription == "") return {errosAPI: [], data:{}, erro:"*Comentário Obrigatório", status:false}
+        if(generalDescription == "") return {errosAPI: [], data:{}, erro:"*Comentário Obrigatório", status:false, invalido:false}
         const response = await fetch(`${url}chamado/${id}`, {
             headers:{"Content-Type": "application/json", "Authorization": token},
             body:JSON.stringify({ticketStatus:status, generalDescription:generalDescription, internalDescription:internalDescription}),
             method:"PUT"
         })
         const data = await response.json()
-        if(data?.status == 400){
+        if (data?.status == 500) return {errosAPI: errosAPI, data:{}, erro:"", status:false, invalido:true}
+        if (data?.status == 400){
             errosAPI.push("Erro ao se conectar com a API e com o Banco de Dados.")
-            return {errosAPI: errosAPI, data:{}, erro:"", status:false}
+            return {errosAPI: errosAPI, data:{}, erro:"", status:false, invalido:false}
         }
-        return {errosAPI:[], data:data, erro:"", status:true} 
+        return {errosAPI:[], data:data, erro:"", status:true, invalido:false} 
     } catch(error){
         console.log("Erro --> ", error)
         errosAPI.push("Erro ao se conectar com a API e com o Banco de Dados.")
-        return {errosAPI: errosAPI, data:{}, erro:"", status:false}
+        return {errosAPI: errosAPI, data:{}, erro:"", status:false, invalido:false}
     }
 
 }

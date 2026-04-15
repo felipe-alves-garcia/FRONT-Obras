@@ -66,10 +66,8 @@ const ListarChamados = (props:{token:string}) => {
             let invalido
             setStatusLoading(true)
             listarChamadosAtivos(props.token).then((resp) => {
-                if (resp.invalido){
-                    invalido = resp.invalido
-                    return
-                } 
+                invalido = resp.invalido
+                if (resp.invalido) return
                 setStatusLoading(false)
                 setChamadosAtivos(resp.data)
                 setErrosAPI(resp.errosAPI)
@@ -97,10 +95,8 @@ const ListarChamados = (props:{token:string}) => {
             finished,
             props.token
         ).then((resp) => {
-            if (resp.invalido){
-                invalido = resp.invalido
-                return
-            } 
+            invalido = resp.invalido
+            if (resp.invalido) return
             setStatusLoading(false)
             setChamadosFiltrados(resp.data)
             setErrosAPI(resp.errosAPI)

@@ -10,6 +10,7 @@ import { urlApi } from "@/app/action/url-api"
 
 import LoadErros from "@/components/global/load-erros"
 import Loading from "@/components/global/loading"
+import { redirect } from "next/navigation"
 
 //import L from "leaflet"
 //import "leaflet/dist/leaflet.css"
@@ -81,7 +82,10 @@ const BuscarChamado = (props: {id: string, token: string}) => {
 
     const carregarChamado = async () => {
         setStatusLoading(true)
+        let invalido
         buscarChamadoAdmin(props.id, props.token).then((resp) => {
+            invalido = resp.invalido
+            if (resp.invalido) return
             setStatusLoading(false)
             setChamado(resp.data)
             setErrosAPI(resp.errosAPI)
@@ -92,7 +96,7 @@ const BuscarChamado = (props: {id: string, token: string}) => {
             console.log("Erro --> ", error)
             setErrosAPI(["Erro interno do site.", error] )
         })    
-        
+        if (invalido) redirect("/login")
     }
 
     const hasRun = useRef(false)
@@ -220,8 +224,11 @@ const BuscarChamado = (props: {id: string, token: string}) => {
                                     <button
                                         className="text-center bg-blue-400 hover:bg-blue-500 text-white font-bold py-3 px-8 sm:px-10 rounded-2xl mt-4"
                                         onClick={() => {
+                                            let invalido
                                             setStatusLoading(true)
                                             updateStatusChamado(chamado?.ticket?.id, statusUpdate, props.token, generalDescription, internalDescription).then((resp) => {
+                                                invalido = resp.invalido
+                                                if (resp.invalido) return
                                                 setErro(resp.erro)
                                                 if(resp.erro == ""){
                                                     setStatusLoading(false)
@@ -243,6 +250,7 @@ const BuscarChamado = (props: {id: string, token: string}) => {
                                                 console.log("Erro --> ", error)
                                                 setErrosAPI(["Erro interno do site.", error])
                                             })
+                                            if (invalido) redirect("/login")
                                         }}
                                     >Alterar Estado<i className="ml-4 bi bi-pencil-square"></i>
                                     </button>
