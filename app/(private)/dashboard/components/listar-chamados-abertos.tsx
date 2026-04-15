@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 import { useState, useEffect } from "react"
-import { stat } from "node:fs/promises"
+import { redirect } from "next/navigation"
 
 const ListarChamados = (props:{token:string}) => {
 
@@ -63,8 +63,13 @@ const ListarChamados = (props:{token:string}) => {
 
     useEffect(() => {
         const dados = () => {
+            let invalido
             setStatusLoading(true)
             listarChamadosAtivos(props.token).then((resp) => {
+                if (resp.invalido){
+                    invalido = resp.invalido
+                    return
+                } 
                 setStatusLoading(false)
                 setChamadosAtivos(resp.data)
                 setErrosAPI(resp.errosAPI)
@@ -73,6 +78,7 @@ const ListarChamados = (props:{token:string}) => {
                 console.log("Erro --> ", error)
                 setErrosAPI(["Erro interno do site.", error])
             })
+            if (invalido) redirect("/login")
         }
         dados()
         
@@ -82,6 +88,7 @@ const ListarChamados = (props:{token:string}) => {
     }, [])
 
     useEffect(() => {
+        let invalido
         setStatusLoading(true)
         listarChamadosFiltros(
             pendent,
@@ -90,6 +97,10 @@ const ListarChamados = (props:{token:string}) => {
             finished,
             props.token
         ).then((resp) => {
+            if (resp.invalido){
+                invalido = resp.invalido
+                return
+            } 
             setStatusLoading(false)
             setChamadosFiltrados(resp.data)
             setErrosAPI(resp.errosAPI)
@@ -98,6 +109,7 @@ const ListarChamados = (props:{token:string}) => {
             console.log("Erro --> ", error)
             setErrosAPI(["Erro interno do site.", error])
         })
+        if (invalido) redirect("/login")
     }, [pendent, received, working, finished])
 
     return (
