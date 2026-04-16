@@ -62,12 +62,10 @@ const ListarChamados = (props:{token:string}) => {
     }, [])
 
     useEffect(() => {
-        const dados = () => {
-            let invalido
+        const dados = async () => {
             setStatusLoading(true)
-            listarChamadosAtivos(props.token).then((resp) => {
-                invalido = resp.invalido
-                if (resp.invalido) return
+            const invalido = await listarChamadosAtivos(props.token).then((resp) => {
+                if (resp.invalido) return resp.invalido
                 setStatusLoading(false)
                 setChamadosAtivos(resp.data)
                 setErrosAPI(resp.errosAPI)
@@ -85,27 +83,29 @@ const ListarChamados = (props:{token:string}) => {
         return () => clearInterval(interval)
     }, [])
 
+    
     useEffect(() => {
-        let invalido
-        setStatusLoading(true)
-        listarChamadosFiltros(
-            pendent,
-            received, 
-            working,
-            finished,
-            props.token
-        ).then((resp) => {
-            invalido = resp.invalido
-            if (resp.invalido) return
-            setStatusLoading(false)
-            setChamadosFiltrados(resp.data)
-            setErrosAPI(resp.errosAPI)
-        }).catch((error) => {
-            setStatusLoading(false)
-            console.log("Erro --> ", error)
-            setErrosAPI(["Erro interno do site.", error])
-        })
-        if (invalido) redirect("/login")
+        const dados = async () => {
+            setStatusLoading(true)
+            const invalido = await listarChamadosFiltros(
+                pendent,
+                received, 
+                working,
+                finished,
+                props.token
+            ).then((resp) => {
+                if (resp.invalido) return resp.invalido
+                setStatusLoading(false)
+                setChamadosFiltrados(resp.data)
+                setErrosAPI(resp.errosAPI)
+            }).catch((error) => {
+                setStatusLoading(false)
+                console.log("Erro --> ", error)
+                setErrosAPI(["Erro interno do site.", error])
+            })
+            if (invalido) redirect("/login")
+        }
+    dados()
     }, [pendent, received, working, finished])
 
     return (

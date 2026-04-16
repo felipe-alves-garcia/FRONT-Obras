@@ -82,10 +82,8 @@ const BuscarChamado = (props: {id: string, token: string}) => {
 
     const carregarChamado = async () => {
         setStatusLoading(true)
-        let invalido
-        buscarChamadoAdmin(props.id, props.token).then((resp) => {
-            invalido = resp.invalido
-            if (resp.invalido) return
+        const invalido = await buscarChamadoAdmin(props.id, props.token).then((resp) => {
+            if (resp.invalido) return resp.invalido
             setStatusLoading(false)
             setChamado(resp.data)
             setErrosAPI(resp.errosAPI)
@@ -95,7 +93,7 @@ const BuscarChamado = (props: {id: string, token: string}) => {
             setStatusLoading(false)
             console.log("Erro --> ", error)
             setErrosAPI(["Erro interno do site.", error] )
-        })    
+        })   
         if (invalido) redirect("/login")
     }
 
@@ -223,12 +221,10 @@ const BuscarChamado = (props: {id: string, token: string}) => {
                                 <div className="mt-5 sm:space-x-5 flex flex-col sm:flex-row w-full justify-center">
                                     <button
                                         className="text-center bg-blue-400 hover:bg-blue-500 text-white font-bold py-3 px-8 sm:px-10 rounded-2xl mt-4"
-                                        onClick={() => {
-                                            let invalido
+                                        onClick={async () => {
                                             setStatusLoading(true)
-                                            updateStatusChamado(chamado?.ticket?.id, statusUpdate, props.token, generalDescription, internalDescription).then((resp) => {
-                                                invalido = resp.invalido
-                                                if (resp.invalido) return
+                                            const invalido = await updateStatusChamado(chamado?.ticket?.id, statusUpdate, props.token, generalDescription, internalDescription).then((resp) => {
+                                                if (resp.invalido) return resp.invalido
                                                 setErro(resp.erro)
                                                 if(resp.erro == ""){
                                                     setStatusLoading(false)
