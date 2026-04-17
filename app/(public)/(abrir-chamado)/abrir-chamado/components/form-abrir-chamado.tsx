@@ -91,7 +91,7 @@ const FormAbrirChamado = () => {
         }
 
         const handleError = async (error: GeolocationPositionError | any) => {
-            console.error("Erro geolocation:", error)
+            console.log("Erro geolocation:", error)
 
             // 👉 Fallback para IP
             try {
@@ -107,7 +107,7 @@ const FormAbrirChamado = () => {
                 })
 
             } catch (err) {
-                console.error("Erro fallback IP:", err)
+                console.log("Erro fallback IP:", err)
                 setErrosAPI(["Erro interno do site.", String(err)])
             }
 
@@ -133,7 +133,7 @@ const FormAbrirChamado = () => {
             )
 
         } catch (err) {
-            console.error("Erro ao verificar permissão:", err)
+            console.log("Erro ao verificar permissão:", err)
             handleError(err)
         }
     }

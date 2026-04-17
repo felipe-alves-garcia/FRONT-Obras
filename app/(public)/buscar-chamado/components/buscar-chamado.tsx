@@ -229,7 +229,7 @@ const BuscarChamado = ({id}: {id:string}) => {
                                 {
                                     chamado.ticket.ticketMessageList.map((update, index) => {
                                         return (
-                                            <>
+                                            <div key={index}>
                                                 {
                                                     update?.ticketStatus == "PENDENT" && (
                                                         <p className="text-gray-700">Atualizado para: <span className="font-bold text-gray-700">Em Aberto</span></p>
@@ -258,7 +258,7 @@ const BuscarChamado = ({id}: {id:string}) => {
                                                         <hr className="border-gray-200 border-2 my-3 "/>
                                                     )
                                                 }
-                                            </>
+                                            </div>
                                         )
                                     })
                                 }    
